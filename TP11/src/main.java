@@ -36,23 +36,19 @@ public class main {
         }
     }
 
-    public static void testServeurClient(String args[]) throws IOException {
-        Serveur serveur= new Serveur(1025);
+    public static void main(String args[]) throws IOException {
+        Serveur serveur= new Serveur(Serveur.portConnexion);
         Client client = new Client("127.0.0.1");
+        client.connexion("127.0.0.1");
+        serveur.connexion();
         int continuer = 0;
-        while(true)
-        {
-            System.out.println("Taper le message à envoyer");
-            Scanner smessage = new Scanner(System.in);
-            String message = smessage.nextLine();
-            client.envoieMessage(message,1025,"127.0.0.1");
-            serveur.recevoir();
-        }
+//        while(true)
+//        {
+//            System.out.println("Taper le message à envoyer");
+//            Scanner smessage = new Scanner(System.in);
+//            String message = smessage.nextLine();
+//            serveur.recevoir();
+//        }
 
     }
-
-
-
-
-
 }

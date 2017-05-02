@@ -7,6 +7,7 @@ import java.net.*;
 public class Client {
     private DatagramSocket socket;
     private InetAddress address;
+    public static String forSplit = "µ";
 
     public Client(String ipAdress) {
         try {
@@ -25,6 +26,7 @@ public class Client {
     public void envoieMessage(String message, int port, String destination) {
 
         DatagramPacket packet;
+        message+=forSplit;
         byte[] data = message.getBytes();
         try {
             InetAddress address = InetAddress.getByName(destination);
@@ -35,6 +37,12 @@ public class Client {
             System.out.println("PROBLEME ENVOIE");
             e.printStackTrace();
         }
+    }
+
+    public void connexion(String destination)
+    {
+        envoieMessage("connexion",Serveur.portConnexion, destination);
+        System.out.println("Connexion client");
     }
 
 }
