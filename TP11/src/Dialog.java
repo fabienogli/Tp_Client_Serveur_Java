@@ -6,7 +6,7 @@ import java.net.InetAddress;
 /**
  * Created by Fabien on 12/04/2017.
  */
-public class Dialog {
+public class Dialog implements Runnable{
     byte[] buffer;
     DatagramSocket socket;
     static int numDialog;
@@ -16,6 +16,7 @@ public class Dialog {
     InetAddress ipClient;
     InetAddress ipServeur;
     Client client;
+    boolean ouvert;
 
     public Dialog(InetAddress ipClient,  int portClient,  Client client, Serveur serveur){
         numDialog+=1;
@@ -27,6 +28,13 @@ public class Dialog {
         Client.envoieMessage("ouverture_dialog", portClient, ipClient.getHostName(), socket);
         System.out.println("Envoie du msg au client");
         if(client.receptionConnexion())
+            ouvert = true;
+        else ouvert = false;
+    }
+
+    @Override
+    public void run() {
+        if(ouvert)
             startDialog();
     }
 

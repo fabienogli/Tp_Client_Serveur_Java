@@ -63,6 +63,8 @@ public class Serveur {
             //Créer dialog
             System.out.println("Connexion serveur");
             Dialog dialog = new Dialog(ipClient, portClient, client,this);
+            Thread thread = new Thread(dialog);
+            dialog.run();
         }
         else
             System.out.println("Erreur connexion");
