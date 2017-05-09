@@ -40,7 +40,7 @@ public class main {
         Serveur serveur= new Serveur(Serveur.portConnexion);
         Client client = new Client("127.0.0.1");
         client.connexion("127.0.0.1");
-        serveur.connexion();
+        serveur.connexion(client);
         int continuer = 0;
 //        while(true)
 //        {

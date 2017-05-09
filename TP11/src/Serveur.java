@@ -12,6 +12,7 @@ public class Serveur {
     DatagramSocket socket;
     int port;
     InetAddress ipClient;
+    int portClient;
     public static int portConnexion = 1025;
 
     public Serveur(int port){
@@ -40,12 +41,13 @@ public class Serveur {
         }
     }
 
-    public String messageRecu(){
+    public String messageRecu(byte[] buffer, DatagramSocket socket){
         buffer = initiateBuffer();
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
         try {
             socket.receive(packet);
             ipClient = packet.getAddress();
+            portClient = packet.getPort();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Rien recu");
@@ -54,12 +56,13 @@ public class Serveur {
         return string.split(Client.forSplit)[0];
     }
 
-    public void connexion(){
-        String connexion = messageRecu();
+    public void connexion(Client client){
+        String connexion = messageRecu(buffer, this.socket);
         System.out.println();
         if(connexion.equals("connexion")){
             //Créer dialog
             System.out.println("Connexion serveur");
+            Dialog dialog = new Dialog(ipClient, portClient, client,this);
         }
         else
             System.out.println("Erreur connexion");
